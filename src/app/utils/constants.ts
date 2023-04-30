@@ -6,4 +6,5 @@ export enum CURRENCY_TYPE {
 }
 export const FORM_CONSTANTS={
     TITLE:'Crypto Converter',
+    WALLET_LINK:'Click wallet details'
 }

@@ -52,7 +52,7 @@ const Form = () => {
             href="#"
             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
-            Click wallet details
+            {FORM_CONSTANTS.WALLET_LINK}
           </a>
         </div>
       </div>
