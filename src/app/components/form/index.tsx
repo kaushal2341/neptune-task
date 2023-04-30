@@ -8,6 +8,7 @@ import {
 } from "@/app/utils/convertion.utils";
 import ArrowAheadIcon from "@/app/custom-icons/arrow-ahead";
 import { FORM_CONSTANTS } from "@/app/utils/constants";
+import Link from "../links";
 const Form = () => {
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
@@ -48,12 +49,7 @@ const Form = () => {
           onChangeHandler={onChangeHandler}
         />
         <div className="grid place-items-center">
-          <a
-            href="#"
-            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
-            {FORM_CONSTANTS.WALLET_LINK}
-          </a>
+          <Link subTitle={FORM_CONSTANTS.WALLET_LINK} />
         </div>
       </div>
     </form>
