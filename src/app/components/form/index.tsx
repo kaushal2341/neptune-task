@@ -6,7 +6,7 @@ import {
   convertionRateToAnother,
   setChangeHandler,
 } from "@/app/utils/convertion.utils";
-import {ArrowPathRoundedSquareSolid} from '@graywolfai/react-heroicons';
+import ArrowAheadIcon from "@/app/custom-icons/arrow-ahead";
 import { FORM_CONSTANTS } from "@/app/utils/constants";
 const Form = () => {
   const [fromCurrency, setFromCurrency] = useState("");
@@ -33,7 +33,10 @@ const Form = () => {
           labelName="NEP"
           onChangeHandler={onChangeHandler}
         />
-        <ArrowPathRoundedSquareSolid/>
+        <div className="grid place-items-center">
+          <ArrowAheadIcon />
+        </div>
+
         <InputField
           inputClass="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           inputName="toCurrency"
@@ -44,6 +47,14 @@ const Form = () => {
           value={toCurrency}
           onChangeHandler={onChangeHandler}
         />
+        <div className="grid place-items-center">
+          <a
+            href="#"
+            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            Click wallet details
+          </a>
+        </div>
       </div>
     </form>
   );
