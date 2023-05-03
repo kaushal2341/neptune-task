@@ -10,6 +10,7 @@ import ArrowAheadIcon from "@/app/custom-icons/arrow-ahead";
 import { FORM_CONSTANTS, MODAL_CONSTANTS } from "@/app/utils/constants";
 import Link from "../links";
 import Modal from "../modal";
+import { connectToWallet } from "@/app/utils/wallet.utils";
 const CurrencyConverterForm = () => {
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
@@ -23,8 +24,10 @@ const CurrencyConverterForm = () => {
   const onShowHideWalletDetails = (flag: boolean) => {
     setShowModal(flag);
   };
-  const onConnectWallet = () => {
+   const onConnectClick = async() => {
     console.log("====Wallet connected====");
+    setShowModal(false);
+    await connectToWallet()
   };
 
   return (
@@ -70,7 +73,7 @@ const CurrencyConverterForm = () => {
         cancelButtonName="Cancel"
         okButtonName="Connect"
         onClickCancel={() => onShowHideWalletDetails(false)}
-        onClickOk={onConnectWallet}
+        onClickOk={onConnectClick}
         content={MODAL_CONSTANTS.WALLET_CONTENT}
         heading={MODAL_CONSTANTS.WALLET_HEADING}
         parentShowModal={showModal}

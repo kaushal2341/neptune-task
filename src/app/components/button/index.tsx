@@ -10,7 +10,7 @@ const Button = ({
   buttonNameContent: ReactElement | string;
 }) => {
   return (
-    <button className={buttonClassName} onClick={() => onClickButton}>
+    <button className={buttonClassName} onClick={() => onClickButton()}>
       {buttonNameContent}
     </button>
   );
