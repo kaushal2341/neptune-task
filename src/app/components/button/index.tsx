@@ -4,15 +4,18 @@ const Button = ({
   buttonClassName,
   onClickButton,
   buttonNameContent,
+  animationChildren,
 }: {
   buttonClassName: string;
   onClickButton: Function;
   buttonNameContent: ReactElement | string;
+  animationChildren?: ReactElement;
 }) => {
   return (
-    <button className={buttonClassName} onClick={() => onClickButton()}>
+    <a className={buttonClassName} onClick={() => onClickButton()}>
+      {animationChildren}
       {buttonNameContent}
-    </button>
+    </a>
   );
 };
 export default Button;
