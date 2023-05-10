@@ -10,11 +10,24 @@ import ArrowAheadIcon from "@/app/custom-icons/arrow-ahead";
 import { FORM_CONSTANTS, MODAL_CONSTANTS } from "@/app/utils/constants";
 import Link from "../links";
 import Modal from "../modal";
-import { connectToWallet } from "@/app/utils/wallet.utils";
+import {
+  connectToWallet,
+  getBalanceFromwalletService,
+  getChainIdFromwalletService,
+  getResponseData,
+} from "@/app/utils/wallet.utils";
+import { ResponseMessageType } from "@/app/types/ResponseMessageType";
+
 const CurrencyConverterForm = () => {
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showViewDetailModal,setShowViewDetailModal] = useState(false)
+
+  const [responseData, setResponseData] = useState<ResponseMessageType>(
+    getResponseData()
+  );
+
   const onChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (value !== "" && !checkTwoDecimalNumber(value)) return;
@@ -24,11 +37,31 @@ const CurrencyConverterForm = () => {
   const onShowHideWalletDetails = (flag: boolean) => {
     setShowModal(flag);
   };
-   const onConnectClick = async() => {
-    console.log("====Wallet connected====");
-    setShowModal(false);
-    await connectToWallet()
+  const onShowHideViewDetail = (flag:boolean) =>{
+    setShowViewDetailModal(flag)
+  }
+  const onConnectClick = async () => {
+    const responseMessage = await connectToWallet();
+    setResponseData(responseMessage);
+    if (!responseMessage.loading) return;
+    const balanceResponseMessage = await getBalanceFromwalletService(
+      responseMessage.data.address
+    );
+    setResponseData(balanceResponseMessage);
+    if (!balanceResponseMessage.loading) return;
+    const chainResponseMessage = await getChainIdFromwalletService(
+      balanceResponseMessage.data.address,
+      balanceResponseMessage.data.balance
+    );
+    setResponseData(chainResponseMessage);
+    onShowHideWalletDetails(false);
+    onShowHideViewDetail(true)
+    
   };
+
+  const onDisconnectWallet = () =>{
+    onShowHideViewDetail(false)
+  }
 
   return (
     <>
@@ -68,15 +101,26 @@ const CurrencyConverterForm = () => {
           </div>
         </div>
       </form>
-      {/**Wallet Modal */}
+      {/**Wallet Connection Modal */}
       <Modal
         cancelButtonName="Cancel"
-        okButtonName="Connect"
+        okButtonName={!responseData.loading ? "Connect" : "Connecting..."}
         onClickCancel={() => onShowHideWalletDetails(false)}
         onClickOk={onConnectClick}
-        content={MODAL_CONSTANTS.WALLET_CONTENT}
+        okButtonShow={true}
+        content={responseData.message}
         heading={MODAL_CONSTANTS.WALLET_HEADING}
         parentShowModal={showModal}
+      />
+      {/**Wallet Details Modal */}
+      <Modal
+        cancelButtonName="Disconnect"
+        okButtonName={""}
+        onClickCancel={() => onDisconnectWallet()}
+        onClickOk={onConnectClick}
+        content={responseData.message}
+        heading={MODAL_CONSTANTS.WALLET_HEADING}
+        parentShowModal={showViewDetailModal}
       />
     </>
   );

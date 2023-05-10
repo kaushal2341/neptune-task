@@ -12,3 +12,6 @@ export const MODAL_CONSTANTS = {
   WALLET_CONTENT: `Wallet not connected. Please click the "Connect" button below.`,
   WALLET_HEADING: `Wallet Details`,
 };
+export enum WALLET_ERROR_MESSAGE{
+  WALLET_NOT_FOUND = 'Wallet not found. Please install metamask  extension on your browser',
+}
