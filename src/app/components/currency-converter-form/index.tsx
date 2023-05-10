@@ -17,12 +17,17 @@ import {
   getResponseData,
 } from "@/app/utils/wallet.utils";
 import { ResponseMessageType } from "@/app/types/ResponseMessageType";
+import Table from "../table";
+import { headerTables } from "./currency-converter-constants";
+import { keyValueObjectMapping } from "@/app/utils/key-value-object-mapping.utils";
+import { KeyValueTypes } from "@/app/types/TableTypes";
 
 const CurrencyConverterForm = () => {
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showViewDetailModal,setShowViewDetailModal] = useState(false)
+  const [tableDetailsData,setTableDetailsData] = useState<Array<KeyValueTypes>>([])
 
   const [responseData, setResponseData] = useState<ResponseMessageType>(
     getResponseData()
@@ -55,6 +60,7 @@ const CurrencyConverterForm = () => {
     );
     setResponseData(chainResponseMessage);
     onShowHideWalletDetails(false);
+    setTableDetailsData(keyValueObjectMapping(chainResponseMessage.data))
     onShowHideViewDetail(true)
     
   };
@@ -118,7 +124,7 @@ const CurrencyConverterForm = () => {
         okButtonName={""}
         onClickCancel={() => onDisconnectWallet()}
         onClickOk={onConnectClick}
-        content={responseData.message}
+        content={<Table headers={headerTables} data={tableDetailsData}/>}
         heading={MODAL_CONSTANTS.WALLET_HEADING}
         parentShowModal={showViewDetailModal}
       />

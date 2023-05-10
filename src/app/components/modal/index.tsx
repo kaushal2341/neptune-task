@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Button from "../button";
 
 const Modal = ({
@@ -15,7 +15,7 @@ const Modal = ({
   onClickOk: Function;
   onClickCancel: Function;
   heading?: string;
-  content?: string;
+  content?: string|ReactElement;
   okButtonShow?:boolean
   okButtonName: string;
   cancelButtonName: string;
@@ -42,7 +42,7 @@ const Modal = ({
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <div className="flex items-start justify-between p-5 rounded-t">
                   <h5 className="text-xl font-bold">{heading}</h5>
                   <Button
                      buttonClassName="relative inline-flex items-center justify-center px-1 py-1 overflow-hidden font-mono font-medium tracking-tighter text-white bg-white rounded-lg group"
@@ -77,12 +77,12 @@ const Modal = ({
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-md leading-relaxed text-rose-400">
+                  {okButtonShow?<p className="my-4 text-md leading-relaxed text-rose-400">
                     {content}
-                  </p>
+                  </p>:content}
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-center space-x-px p-6 border-t border-solid border-slate-200 rounded-b">
+                <div className="flex items-center justify-center space-x-px p-6  rounded-b">
                   {okButtonShow && <Button
                     buttonClassName="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-mono font-medium tracking-tighter text-white bg-white rounded-lg group"
                     onClickButton={onOkModalClick}
