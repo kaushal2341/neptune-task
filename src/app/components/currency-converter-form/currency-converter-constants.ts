@@ -1,14 +1,14 @@
 export const headerTables = [{
-    name:'Key',
-    class:'text-start px-16 py-3',
+    name:'KEY',
+    class:'text-start text-xs px-12 py-3 tracking-wide',
     scope:'col',
-    tableBodyRowClass:'text-start px-16 py-3'
+    tableBodyRowClass:'text-start text-sm font-semibold text-gray-600 px-12 py-3'
 },
 {
-    name:'Value',
-    class:'text-start px-16 py-3',
+    name:'VALUE',
+    class:'text-end text-xs px-12 py-3 tracking-wide',
     scope:'col',
-    tableBodyRowClass:'truncate w-20'
+    tableBodyRowClass:' text-sm font-semibold text-gray-600'
 },
 ]
 

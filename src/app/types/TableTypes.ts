@@ -6,5 +6,5 @@ export interface HeaderTypes{
 }
 export interface KeyValueTypes{
     key:string;
-    value:string;
+    value:string|BigInt;
 }

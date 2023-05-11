@@ -2,9 +2,9 @@ import { getBalance, getChainId } from "../services/ether";
 import { MODAL_CONSTANTS, WALLET_ERROR_MESSAGE } from "./constants";
 export const getResponseData = () =>({message : MODAL_CONSTANTS.WALLET_CONTENT,
   data: {
-    id: "",
-    address: "",
-    balance: "",
+    account: "",
+    chainId: BigInt(""),
+    balance:BigInt(""),
   },
   loading :false})
 
@@ -16,7 +16,7 @@ export const connectToWallet = async () => {
     const accounts: Array<string> | string = await getAccounts();
 
     if (Array.isArray(accounts)) {
-      responseData.data.address = accounts[0]
+      responseData.data.account = accounts[0]
     
       responseData.loading=true;
     } else {
@@ -30,11 +30,11 @@ export const getBalanceFromwalletService = async (account: string) => {
   const responseData =  getResponseData()
   try {
     let balance = await getBalance(account);
-    responseData.data.balance = balance.toString();
+    responseData.data.balance = balance;
     responseData.data={
       ...responseData.data,
-      balance:balance.toString(),
-      address:account
+      balance:balance,
+      account
     }
     responseData.loading=true;
   } catch (e: any) {
@@ -46,13 +46,13 @@ export const getBalanceFromwalletService = async (account: string) => {
 
 export const getChainIdFromwalletService = async (
   account: string,
-  balance: string
+  balance: bigint
 ) => {
   const responseData = getResponseData();
   try {
     const chain = await getChainId();
-    responseData.data.id = chain.chainId.toString();
-    responseData.data.address = account;
+    responseData.data.chainId = chain.chainId;
+    responseData.data.account = account;
     responseData.data.balance = balance;
     responseData.loading=false;
   } catch (e: any) {

@@ -1,5 +1,5 @@
 export interface WalletResponseData {
-  id: string;
-  address: string;
-  balance: string;
+  account: string;
+  chainId: bigint|string;
+  balance: bigint|string;
 }

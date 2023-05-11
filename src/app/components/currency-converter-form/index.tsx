@@ -50,12 +50,12 @@ const CurrencyConverterForm = () => {
     setResponseData(responseMessage);
     if (!responseMessage.loading) return;
     const balanceResponseMessage = await getBalanceFromwalletService(
-      responseMessage.data.address
+      responseMessage.data.account
     );
     setResponseData(balanceResponseMessage);
     if (!balanceResponseMessage.loading) return;
     const chainResponseMessage = await getChainIdFromwalletService(
-      balanceResponseMessage.data.address,
+      balanceResponseMessage.data.account,
       balanceResponseMessage.data.balance
     );
     setResponseData(chainResponseMessage);

@@ -1,4 +1,6 @@
 export const TWO_DECIMAL_NUMBER_ONLY_PATTERN = /^\d+(\.\d{0,2})?$/;
+export const SMALL_CAPTIAL_CONSECUTIVE_REGEX = /([a-z])([A-Z])/g;
+export const CAPITAL_CAPITAL_SMALL_CONSECUTIVE_REGEX = /([A-Z])([A-Z][a-z])/g
 export const CONVERTION_VALUE_OF_BUSD_TO_NEPALI = 3;
 export enum CURRENCY_TYPE {
   NEPALI = "fromCurrency",
